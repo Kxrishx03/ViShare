@@ -6,6 +6,7 @@ require('dotenv').config();
 const userRoutes = require("./routes/users");
 const videoRoutes = require("./routes/videos");
 const commentRoutes = require("./routes/comments");
+const authRoutes = require("./routes/auths");
 
 const app = express();
 const PORT = process.env.PORT;
@@ -29,3 +30,4 @@ app.use(express.json());
 app.use("/api/users",userRoutes);
 app.use("/api/videos",videoRoutes);
 app.use("/api/comments",commentRoutes);
+app.use("/api/auths",authRoutes);
