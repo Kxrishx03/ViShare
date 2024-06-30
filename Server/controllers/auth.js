@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
 // SIGNUP
 const signup = async (req, res) => {
@@ -48,8 +50,16 @@ const signin = async (req, res) => {
         if (!match) {
             return res.status(400).json({ error: "Incorrect password." });
         }
+        
+        const token = jwt.sign({id:user._id},process.env.SECRET);
+        res.cookie("access_token",token,{httpOnly:true}).status(200).json({
+            _id:user._id,
+            name:user.name,
+            email:user.email,
+            subscribers:user.subscribers,
+            subscribedUsers:user.subscribedUsers,
+            access_token:token});
 
-        res.status(200).json({ msg: "SUCCESS", username: user.name });
     } catch (err) {
         console.log(err);
         res.status(400).json({ error: err.message });

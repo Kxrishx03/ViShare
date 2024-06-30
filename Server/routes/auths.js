@@ -6,11 +6,9 @@ const router = express.Router();
 const {signup ,signin} = require("../controllers/auth");
 
 //CREATE A USER
-
 router.post("/signup",signup);
 
 //SIGN IN
-
 router.post("/signin",signin);
 
 //GOOGLE AUTH

@@ -34,6 +34,7 @@ const Details = styled.div`
 
 const Info = styled.span`
   color: ${({ theme }) => theme.textSoft};
+  
 `;
 
 const Buttons = styled.div`
@@ -45,7 +46,7 @@ const Buttons = styled.div`
 const Button = styled.div`
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   cursor: pointer;
 `;
 
@@ -124,7 +125,7 @@ export function Video(){
             </VideoWrapper>
             <Title>Test Video</Title>
             <Details>
-                <Info>7,948,154 • Jun 29 2022</Info>
+                <Info>7,948,657 •Jun 29 2022</Info>
                 <Buttons>
                     <Button><ThumbUpIcon/>2.1k</Button>
                     <Button><ThumbDownIcon/>Dislike</Button>

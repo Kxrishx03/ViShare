@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 
 const Container = styled.div`
- width: ${(props)=>props.type !== "sm" ? "300px" : "200px"};
+ width: ${(props)=>props.type !== "sm" ? "350px" : "200px"};
  cursor: pointer;
  margin: ${(props)=>props.type === "sm" && "0px"};
  margin-bottom:${(props)=>props.type === "sm" ? "0px" :"45px"};
@@ -11,8 +11,8 @@ const Container = styled.div`
 `;
 
 const Img = styled.img`
-  width: 50%;
-  height: ${(props)=>props.type === "sm" ? "120px" :"190px"};
+  width: ${(props)=>props.type === "sm" ? "50%" :"100%"};
+  height: ${(props)=>props.type === "sm" ? "120px" :"200px"};
   background-color: #999;
   flex: 1;
 `;

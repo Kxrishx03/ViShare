@@ -1,8 +1,16 @@
-import { createError } from "../error.js";
-import User from "../models/User.js";
-import Video from "../models/Video.js";
+const User = require("../models/User");
+const bcrypt = require('bcrypt');
 
-const update = async (req, res, next) => {
+const update = async (req, res) => {
+
+      const password = req.body.password;
+
+      if(password) {
+         const salt = await bcrypt.genSalt(10);
+         const hash = await bcrypt.hash(password, salt);
+         req.body.password = hash;
+      }   
+
   if (req.params.id === req.user.id) {
     try {
       const updatedUser = await User.findByIdAndUpdate(
@@ -14,24 +22,30 @@ const update = async (req, res, next) => {
       );
       res.status(200).json(updatedUser);
     } catch (err) {
-      next(err);
+     res.status(400).json({error:err.message});
     }
   } else {
-    return next(createError(403, "You can update only your account!"));
+
+    return res.status(403).json({Error:"Access denied"});
+
   }
 };
 
-const deleteUser = async (req, res, next) => {
+const deleteUser = async (req, res) => {
+
   if (req.params.id === req.user.id) {
+
     try {
       await User.findByIdAndDelete(req.params.id);
       res.status(200).json("User has been deleted.");
     } catch (err) {
-      next(err);
+      res.status(400).json({error:err.message});
     }
+
   } else {
-    return next(createError(403, "You can delete only your account!"));
+    return res.status(403).json({Error:"You can delete only your account!"});
   }
+
 };
 
 const getUser = async (req, res, next) => {
@@ -102,3 +116,6 @@ const dislike = async (req, res, next) => {
     next(err);
   }
 };
+
+
+module.exports = { update,deleteUser }
