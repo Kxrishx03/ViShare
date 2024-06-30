@@ -1,6 +1,6 @@
 const express = require("express");
 const  router = express.Router();
-const { update , deleteUser} = require("../controllers/user");
+const { update , deleteUser , getUser,subscribe,unsubscribe } = require("../controllers/user");
 const { verifyToken } = require("../verifyToken");
 
 
@@ -11,19 +11,19 @@ router.put("/:id",verifyToken,update);
 router.delete("/:id",verifyToken,deleteUser);
 
 //GET USER
-router.get("/find/:id",);
+router.get("/find/:id",getUser);
 
 //SUBSCRIBE USER
-router.put("/sub/:id",);
+router.put("/sub/:id",verifyToken,subscribe);
 
 //UNSUBSCRIBE USER
-router.put("/unsub/:id",);
+router.put("/unsub/:id",verifyToken,unsubscribe);
 
 //LIKE A VIDEO
-router.put("/like/:videoId",);
+router.put("/like/:videoId",verifyToken);
 
 //DISLIKE A VIDEO
-router.put("/dislike/:videoId",);
+router.put("/dislike/:videoId",verifyToken);
 
 
 

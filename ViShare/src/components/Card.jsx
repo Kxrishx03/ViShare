@@ -2,10 +2,10 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 
 const Container = styled.div`
- width: ${(props)=>props.type !== "sm" ? "350px" : "200px"};
+ width: ${(props)=>props.type !== "sm" ? "400px" : "200px"};
  cursor: pointer;
  margin: ${(props)=>props.type === "sm" && "0px"};
- margin-bottom:${(props)=>props.type === "sm" ? "0px" :"45px"};
+ margin-bottom:${(props)=>props.type === "sm" ? "0px" :"30px"};
  display: ${(props)=>props.type === "sm" && "flex"};
  gap: 10px;
 `;
