@@ -117,4 +117,4 @@ const dislike = async (req, res, next) => {
 };
 
 
-module.exports = { update,deleteUser ,getUser ,subscribe,unsubscribe }
+module.exports = { update,deleteUser ,getUser ,subscribe,unsubscribe };
