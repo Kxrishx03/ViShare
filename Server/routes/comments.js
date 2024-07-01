@@ -1,6 +1,6 @@
 const express = require("express");
 const  router = express.Router();
-const { addComment, deleteComment, getComments } = require("../");
+const { addComment, deleteComment, getComments } = require("../controllers/comment");
 const {verifyToken} = require("../verifyToken"); 
 
 
