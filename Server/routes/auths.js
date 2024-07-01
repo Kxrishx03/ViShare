@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 //CONTROLLERS
-const {signup ,signin} = require("../controllers/auth");
+const {signup ,signin,googleAuth} = require("../controllers/auth");
 
 //CREATE A USER
 router.post("/signup",signup);
@@ -13,6 +13,6 @@ router.post("/signin",signin);
 
 //GOOGLE AUTH
 
-router.post("/google",);
+router.post("/google",googleAuth);
 
 module.exports = router;
