@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-
+import {useDispath} from "react-redux";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -68,17 +68,18 @@ export function Signin(){
   const [name,setName] = useState("");
   const [password,setPassword] = useState("");
   const [email,setEmail] = useState("");
-
+  const dispatch = useDispath();
   const handleLogin = async (e) =>{
         e.preventDefault();
-
+        dispatch(loginStart());
         try{
           
           const res = await axios.post("http://localhost:3000/api/auths/signin",{name,password,email});
           console.log(res.data);
+          dispatch(loginSuccess({res.data}));
 
         } catch(err) {
-             console.log(err)
+             dispatch(loginFailure());
         }
   }
   return (
