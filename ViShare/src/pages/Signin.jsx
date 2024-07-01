@@ -1,12 +1,8 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
-// import { auth, provider } from "../firebase";
-// import { signInWithPopup } from "firebase/auth";
-// import { async } from "@firebase/util";
-// import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loginStart, loginSuccess, loginFailure } from "../redux/userSlice";
 
 const Container = styled.div`
   display: flex;

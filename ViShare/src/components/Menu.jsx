@@ -17,6 +17,7 @@ import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import LibraryMusicSharp from "@mui/icons-material/LibraryMusicSharp";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
 flex:1;
@@ -83,7 +84,8 @@ color:#aaaaaa;
 margin-bottom:20px`;
 
 export function Menu({darkMode,setDarkMode}){
-    return (
+   const { currentUser } = useSelector((state) => state.user); 
+   return (
     <Container>
           <Wrapper>
             <Logo>
@@ -111,13 +113,13 @@ export function Menu({darkMode,setDarkMode}){
                <HistorySharpIcon/> History
             </Item>
             <Hr></Hr>
-            <Login>
+            {!currentUser && <><Login>
             Sign in to Like videos,comment,and subscribe.
             <Link style={{textDecoration:"none"}} to={"/signin"}>
                 <Button> <AccountCircleSharpIcon/>SIGN IN</Button>
             </Link>   
-            </Login>
-            <Hr></Hr>
+            </Login> <Hr></Hr> </>}
+            
             <Title>BEST OF VISHARE</Title>
             <Item>
                <LibraryMusicSharp/> Music
