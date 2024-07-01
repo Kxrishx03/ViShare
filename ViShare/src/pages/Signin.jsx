@@ -1,7 +1,13 @@
-import React, { useState } from "react";
-import styled from "styled-components";
 import axios from "axios";
-import {useDispath} from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
+import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
+// import { auth, provider } from "../firebase";
+// import { signInWithPopup } from "firebase/auth";
+// import { async } from "@firebase/util";
+// import { useNavigate } from "react-router-dom";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -68,15 +74,15 @@ export function Signin(){
   const [name,setName] = useState("");
   const [password,setPassword] = useState("");
   const [email,setEmail] = useState("");
-  const dispatch = useDispath();
+  const dispatch = useDispatch();
   const handleLogin = async (e) =>{
         e.preventDefault();
         dispatch(loginStart());
         try{
           
-          const res = await axios.post("http://localhost:3000/api/auths/signin",{name,password,email});
+          const res = await axios.post("http://localhost:3000/api/auths/signin",{name,password});
           console.log(res.data);
-          dispatch(loginSuccess({res.data}));
+          dispatch(loginSuccess(res.data));
 
         } catch(err) {
              dispatch(loginFailure());
