@@ -116,7 +116,7 @@ const random = async (req,res) =>{
 
     try {
 
-        const videos = await Video.aggregate([{$sample:{size:2}}]);
+        const videos = await Video.aggregate([{$sample:{size:10}}]);
 
         res.status(200).json(videos);
 

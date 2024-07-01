@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Card} from "../components/Card";
+import { Card } from "../components/Card";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -9,26 +9,29 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
+export function Home({ type }) {
+  const [videos, setVideos] = useState([]);
 
-export function Home({type}){
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/api/videos/${type}`);
+        console.log(res.data);
+        setVideos(res.data);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    };
 
-    const [videos,setVideos] = useState([]);
+    fetchVideos();
+  }, [type]);
 
-    useEffect(()=>{
-          const fetchVideos = async () => {
-
-             const res = await axios.get("http://localhost:3000/api/videos/random");
-             console.log(res.data);
-             setVideos(res.data);
-          };
-          fetchVideos();
-    },[type]);
-
-    return (
-        <Container>
-        {videos.map((video) =>{
-          <Card  />
-        })}
-        </Container>
-    )
+  console.log("videos", videos);
+  return (
+    <Container>
+      {videos && videos.map((video) => (
+        <Card key={video._id} video={video} />
+      ))}
+    </Container>
+  );
 }

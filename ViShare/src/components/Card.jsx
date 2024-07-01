@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
+import {format} from "timeago.js";
+import axios from "axios";
+import { useState,useEffect } from "react";
 
 const Container = styled.div`
  width: ${(props)=>props.type !== "sm" ? "400px" : "200px"};
@@ -22,7 +25,7 @@ const Details = styled.div`
   width: ${(props) => props.type === "sm" && "100%"};
   display: flex;
   margin-top: ${(props) => props.type !== "sm" && "16px"};
-  gap: 10x;
+  gap: 15px;
   flex: 1;
 `;
 
@@ -45,7 +48,7 @@ const Title = styled.h1`
 const ChannelName = styled.h2`
   font-size: 14px;
   color: ${({ theme }) => theme.textSoft};
-  margin: 9px 0px;
+  margin: 7px 0px;
 `;
 
 const Info = styled.div`
@@ -54,17 +57,34 @@ const Info = styled.div`
 `;
 
 
-export function Card({type}){
+export function Card({type,video}){
+ 
+  const [channel,setChannel] = useState({});
+
+  useEffect(() => {
+    const fetchChannel = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/api/users/find/${video.userId}`);
+        console.log(res.data);
+        setChannel(res.data);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    };
+
+    fetchChannel();
+  }, [video.userId]);
     return(
         <Link  style={{textDecoration:"none",color:"inherit"}} to="/video/test">
         <Container type={type}>
-           <Img type={type} src="https://img.youtube.com/vi/HURAE4hnFrI/sddefault.jpg"/>
+           <Img type={type} src={video.imgUrl
+}/>
            <Details type={type}>
-            <ChannelImage type={type} />
+            <ChannelImage type={type} src={channel.img} />
             <Texts >
-                <Title >Test Video</Title>
-                <ChannelName>Test Channel</ChannelName>
-                <Info>660,908 views • 1 day ago</Info>
+                <Title >{video.title}</Title>
+                <ChannelName>{channel.name}</ChannelName>
+                <Info>{video.views} views • {format(video.createdAt)}</Info>
             </Texts>
            </Details>
         </Container>

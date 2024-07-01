@@ -93,12 +93,16 @@ export function Menu({darkMode,setDarkMode}){
             <Item>
                <HomeIcon/> Home
             </Item>
+            <Link style={{textDecoration:"none",color:"inherit"}} to="trends">
             <Item>
                <ExploreIcon/> Explore
             </Item>
+            </Link>
+            <Link style={{textDecoration:"none",color:"inherit"}} to="/sub">
             <Item>
                <SubscriptionsSharpIcon/> Subcriptions
             </Item>
+            </Link>
             <Hr></Hr>
             <Item>
                <VideoLibrarySharpIcon/> Library
