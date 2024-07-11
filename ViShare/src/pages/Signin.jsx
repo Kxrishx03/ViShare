@@ -84,7 +84,7 @@ export function Signin(){
           const res = await axios.post("http://localhost:3000/api/auths/signin",{name,password});
           console.log(res.data);
           dispatch(loginSuccess(res.data));
-          navigate("/")
+          navigate("/");
 
         } catch(err) {
              dispatch(loginFailure());
@@ -95,8 +95,9 @@ export function Signin(){
     dispatch(loginStart());
     signInWithPopup(auth, provider)
       .then((result) => {
+        console.log(result);
         axios
-          .post("/auth/google", {
+          .post("http://localhost:3000/api/auths/google", {
             name: result.user.displayName,
             email: result.user.email,
             img: result.user.photoURL,

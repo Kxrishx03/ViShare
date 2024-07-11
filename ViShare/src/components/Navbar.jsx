@@ -76,7 +76,7 @@ export function Navbar(){
 
     const { currentUser } = useSelector((state) => state.user);
     const [open, setOpen] = useState(false);
-    console.log(currentUser.img)
+    console.log(currentUser);
     return (
         <Container>
             <Wrapper>
