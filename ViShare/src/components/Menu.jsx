@@ -92,9 +92,11 @@ export function Menu({darkMode,setDarkMode}){
                 <Img src={logo} />
                     VISHARE
             </Logo>
+            <Link style={{textDecoration:"none",color:"inherit"}} to="/">
             <Item>
-               <HomeIcon/> Home
+            <HomeIcon/> Home
             </Item>
+            </Link>
             <Link style={{textDecoration:"none",color:"inherit"}} to="trends">
             <Item>
                <ExploreIcon/> Explore
