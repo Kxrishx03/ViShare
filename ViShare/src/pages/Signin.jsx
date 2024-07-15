@@ -70,48 +70,57 @@ const Link = styled.span`
 `;
 
 export function Signin(){
-  const [name,setName] = useState("");
-  const [password,setPassword] = useState("");
-  const [email,setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = async (e) =>{
-        e.preventDefault();
-        dispatch(loginStart());
-        try{
-          
-          const res = await axios.post("http://localhost:3000/api/auths/signin",{name,password});
-          console.log(res.data);
-          dispatch(loginSuccess(res.data));
-          navigate("/");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    dispatch(loginStart());
+    try {
+      const res = await axios.post("http://localhost:3000/api/auths/signin", { name, password });
+      console.log(res.data);
+      dispatch(loginSuccess(res.data));
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      dispatch(loginFailure());
+    }
+  };
 
-        } catch(err) {
-             dispatch(loginFailure());
-        }
-  }
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("/api/auths/signup", { name, email, password });
+      console.log(res.data);
+      dispatch(loginSuccess(res.data));
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const signInWithGoogle = async () => {
     dispatch(loginStart());
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(result);
-        axios
-          .post("http://localhost:3000/api/auths/google", {
-            name: result.user.displayName,
-            email: result.user.email,
-            img: result.user.photoURL,
-          })
-          .then((res) => {
-            console.log(res)
-            dispatch(loginSuccess(res.data));
-            navigate("/")
-          });
-      })
-      .catch((error) => {
-        dispatch(loginFailure());
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+      const res = await axios.post("/api/auths/google", {
+        name: result.user.displayName,
+        email: result.user.email,
+        img: result.user.photoURL,
       });
+      console.log(res);
+      dispatch(loginSuccess(res.data));
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      dispatch(loginFailure());
+    }
   };
+
   return (
     <Container>
       <Wrapper>
@@ -121,17 +130,15 @@ export function Signin(){
         <Input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
         <Button onClick={handleLogin}>Sign in</Button>
         <Title>or</Title>
-        <Button onClick={signInWithGoogle}>
-          Signin with Google
-        </Button>
+        <Button onClick={signInWithGoogle}>Sign in with Google</Button>
         <Title>or</Title>
         <Input placeholder="username" onChange={(e) => setName(e.target.value)} />
-        <Input placeholder="email" onChange={(e) =>setEmail(e.target.value)} />
-        <Input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)}  />
-        <Button>Sign up</Button>
+        <Input placeholder="email" onChange={(e) => setEmail(e.target.value)} />
+        <Input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+        <Button onClick={handleSignup}>Sign up</Button>
       </Wrapper>
       <More>
-        English(USA)
+        English (USA)
         <Links>
           <Link>Help</Link>
           <Link>Privacy</Link>
@@ -140,5 +147,4 @@ export function Signin(){
       </More>
     </Container>
   );
-};
-
+}

@@ -97,4 +97,4 @@ const googleAuth = async (req, res) => {
   }
 };
 
-module.exports = { signup, signin,googleAuth };
+module.exports = { signup,signin,googleAuth };
