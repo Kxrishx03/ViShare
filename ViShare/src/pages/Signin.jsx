@@ -105,12 +105,12 @@ export function Signin(){
   const signInWithGoogle = async () => {
     dispatch(loginStart());
     try {
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth,provider);
       console.log(result);
-      const res = await axios.post("/api/auths/google", {
+      const res = await axios.post("http://localhost:3000/api/auths/google", {
         name: result.user.displayName,
         email: result.user.email,
-        img: result.user.photoURL,
+        img: result.user.photoUrl,
       });
       console.log(res);
       dispatch(loginSuccess(res.data));

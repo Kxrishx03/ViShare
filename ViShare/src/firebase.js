@@ -2,8 +2,10 @@ import { initializeApp } from "firebase/app";
 import { getAuth,GoogleAuthProvider } from "firebase/auth";
 
 // Load Firebase configuration from environment variables
+const KEY = import.meta.env.VITE_FIREBASE_API_KEY;
+
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  apiKey:KEY,
   authDomain: "vishre-9c67d.firebaseapp.com",
   projectId: "vishre-9c67d",
   storageBucket: "vishre-9c67d.appspot.com",
@@ -13,8 +15,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth();
+export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
 
-
-export default app;

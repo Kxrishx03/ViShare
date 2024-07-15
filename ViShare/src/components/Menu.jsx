@@ -18,6 +18,9 @@ import LibraryMusicSharp from "@mui/icons-material/LibraryMusicSharp";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {logout} from "../redux/userSlice";
 
 const Container = styled.div`
 flex:1;
@@ -84,7 +87,18 @@ color:#aaaaaa;
 margin-bottom:20px`;
 
 export function Menu({darkMode,setDarkMode}){
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+
    const { currentUser } = useSelector((state) => state.user); 
+   const handleSignout = () =>{
+        try{
+         dispatch(logout());
+         navigate("/");
+        } catch(err){
+          console.log(err);
+        }
+   }
    return (
     <Container>
           <Wrapper>
@@ -120,6 +134,11 @@ export function Menu({darkMode,setDarkMode}){
             <Link style={{textDecoration:"none"}} to={"/signin"}>
                 <Button> <AccountCircleSharpIcon/>SIGN IN</Button>
             </Link>   
+            </Login> <Hr></Hr> </>}
+            {currentUser && <>
+            <Login>
+            Sign out here.
+                <Button onClick={handleSignout} > <AccountCircleSharpIcon/>SIGN OUT</Button> 
             </Login> <Hr></Hr> </>}
             
             <Title>BEST OF VISHARE</Title>
