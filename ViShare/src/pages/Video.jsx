@@ -4,7 +4,9 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ReplyIcon from '@mui/icons-material/Reply';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { Comments } from "../components/Comments";
-import {Card} from "../components/Card"
+import {Card} from "../components/Card";
+import { useSelector } from "react-router-dom";
+import { useDispatch } from "react-redux"; 
 
 const Container = styled.div`
   display: flex;
@@ -109,6 +111,7 @@ const Recommendation = styled.div`
 `;
 
 export function Video(){
+   const { currentUser } = useSelector((state) =>state.user);
     return(
         <Container>
             <Content>

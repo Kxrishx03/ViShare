@@ -75,7 +75,7 @@ export function Card({type,video}){
     fetchChannel();
   }, [video.userId]);
     return(
-        <Link  style={{textDecoration:"none",color:"inherit"}} to="/video/test">
+        <Link  style={{textDecoration:"none",color:"inherit"}} to={`/video/${video._id}`}>
         <Container type={type}>
            <Img type={type} src={video.imgUrl
 }/>
