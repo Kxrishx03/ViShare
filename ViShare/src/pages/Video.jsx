@@ -9,7 +9,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { fetchSuccess, like, dislike, fetchStart } from "../redux/videoSlice";
+import { fetchSuccess, like, dislike } from "../redux/videoSlice";
+import {format} from "timeago.js";
+import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
+import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 
 const Container = styled.div`
   display: flex;
@@ -115,19 +118,15 @@ export function Video() {
   const { currentVideo } = useSelector((state) => state.video);
   const dispatch = useDispatch();
   const path = useLocation().pathname.split("/")[2];
-  const [video, setVideo] = useState({});
   const [channel, setChannel] = useState({});
 
   useEffect(() => {
-    dispatch(fetchStart());
+    
     const fetchData = async () => {
       try {
         const videoRes = await axios.get(`http://localhost:3000/api/videos/find/${path}`);
-        const channelRes = await axios.get(`http://localhost:3000/api/users/find/${videoRes.data.userId}`);
-
-        setVideo(videoRes.data);
-        console.log(videoRes.data);
-        dispatch(fetchSuccess(videoRes.data));
+        const channelRes = await axios.get(`http://localhost:3000/api/users/find/${videoRes.data.video.userId}`);
+        dispatch(fetchSuccess( videoRes.data.video));
         setChannel(channelRes.data);
       } catch (err) {
         console.log(err.message);
@@ -135,6 +134,16 @@ export function Video() {
     };
     fetchData();
   }, [path, dispatch]);
+
+
+  const handleLike = async () => {
+    await axios.put(`http://localhost:3000/api/users/like/${currentVideo._id}`,null, {withCredentials: true});
+    dispatch(like(currentUser._id));
+  };
+  const handleDislike = async () => {
+    await axios.put(`http://localhost:3000/api/users/dislike/${currentVideo._id}`,null, {withCredentials: true});
+    dispatch(dislike(currentUser._id));
+  };
  
   return (
     <Container>
@@ -150,25 +159,44 @@ export function Video() {
             allowFullScreen
           ></iframe>
         </VideoWrapper>
-        <Title>{currentVideo.title}</Title>
+        <Title>{ currentVideo && currentVideo.title}</Title>
         <Details>
-          <Info>{currentVideo.views} • {format(currentVideo.createdAt)}</Info>
+          <Info>{currentVideo && currentVideo.views} views  • { currentVideo && format(currentVideo.createdAt)}</Info>
           <Buttons>
-            <Button><ThumbUpIcon />{currentVideo.likes?.length || 0}</Button>
-            <Button><ThumbDownIcon />Dislike</Button>
-            <Button><ReplyIcon />Share</Button>
+
+            <Button onClick={handleLike} >
+              {currentVideo.likes?.includes(currentUser?._id) ? (
+                <ThumbUpIcon />
+              ) : (
+                <ThumbUpOutlinedIcon />
+              )}{" "}
+              {currentVideo.likes?.length}
+            </Button>
+
+            <Button onClick={handleDislike}>
+              {currentVideo.dislikes?.includes(currentUser?._id) ? (
+                <ThumbDownIcon />
+              ) : (
+                <ThumbDownOffAltOutlinedIcon />
+              )}{" "}
+              Dislike
+            </Button>
+
+
+            <Button>
+            <ReplyIcon />Share</Button>
             <Button><SaveAltIcon />Download</Button>
           </Buttons>
         </Details>
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src="https://d2qp0siotla746.cloudfront.net/img/use-cases/profile-picture/template_3.jpg" />
+            <Image src={channel && channel.img} />
             <ChannelDetail>
-              <ChannelName>KIARA DEV</ChannelName>
-              <ChannelCounter>500K subscribers</ChannelCounter>
+              <ChannelName>{ channel && channel.name}</ChannelName>
+              <ChannelCounter>{channel && channel.subscribers} subscribers</ChannelCounter>
               <Description>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quisquam ad veritatis quas. Atque eos quisquam nobis quo minima asperiores, autem sed modi qui deleniti voluptatem deserunt rerum ex mollitia?
+                {currentVideo && currentVideo.desc}
               </Description>
             </ChannelDetail>
           </ChannelInfo>

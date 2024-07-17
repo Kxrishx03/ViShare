@@ -52,7 +52,8 @@ const signin = async (req, res) => {
         }
         
         const token = jwt.sign({id:user._id},process.env.SECRET);
-        res.cookie("access_token",token,{httpOnly:true}).status(200).json({
+        res.cookie("access_token",token,{httpOnly:true,secure: true, 
+    sameSite: 'None',}).status(200).json({
             _id:user._id,
             name:user.name,
             email:user.email,
@@ -73,9 +74,8 @@ const googleAuth = async (req, res) => {
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.SECRET);
       res
-        .cookie("access_token", token, {
-          httpOnly: true,
-        })
+        .cookie("access_token", token, {httpOnly:true,secure: true, 
+          sameSite: 'None',})
         .status(200)
         .json(user._doc);
     } else {

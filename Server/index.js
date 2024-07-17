@@ -13,8 +13,17 @@ const app = express();
 const PORT = process.env.PORT;
 
 const cors = require("cors");
-app.use(cors());
-app.options('*', cors());
+// Allow only specific origins and allow credentials
+const corsOptions = {
+    origin: 'http://localhost:5173', // Replace with your frontend URL
+    methods: ['GET', 'PUT', 'POST', 'DELETE'], // Allow specific methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+    credentials: true // Allow credentials (cookies, authorization headers)
+};
+
+app.use(cors(corsOptions));
+
+
 
 
 //CORS error

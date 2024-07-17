@@ -92,13 +92,15 @@ export function Signin(){
 
   const handleSignup = async (e) => {
     e.preventDefault();
+   
     try {
-      const res = await axios.post("/api/auths/signup", { name, email, password });
+      const res = await axios.post("http://localhost:3000/api/auths/signup", { name, email, password });
       console.log(res.data);
       dispatch(loginSuccess(res.data));
       navigate("/");
     } catch (err) {
       console.error(err);
+     
     }
   };
 

@@ -1,6 +1,6 @@
 const express = require("express");
 const  router = express.Router();
-const { update , deleteUser , getUser,subscribe,unsubscribe } = require("../controllers/user");
+const { update , deleteUser , getUser,subscribe,unsubscribe,dislike,like } = require("../controllers/user");
 const { verifyToken } = require("../verifyToken");
 
 
@@ -20,12 +20,10 @@ router.put("/sub/:id",verifyToken,subscribe);
 router.put("/unsub/:id",verifyToken,unsubscribe);
 
 //LIKE A VIDEO
-router.put("/like/:videoId",verifyToken);
+router.put("/like/:videoId",verifyToken,like);
 
 //DISLIKE A VIDEO
-router.put("/dislike/:videoId",verifyToken);
-
-
+router.put("/dislike/:videoId",verifyToken,dislike);
 
 
 module.exports = router;

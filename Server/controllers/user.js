@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Video = require("../models/Video");
 const bcrypt = require('bcrypt');
 
 const update = async (req, res) => {
@@ -88,9 +89,10 @@ const unsubscribe = async (req, res) => {
  
 };
 
-const like = async (req, res, next) => {
+const like = async (req, res) => {
   const id = req.user.id;
   const videoId = req.params.videoId;
+ 
   try {
     await Video.findByIdAndUpdate(videoId,{
       $addToSet:{likes:id},
@@ -98,11 +100,11 @@ const like = async (req, res, next) => {
     })
     res.status(200).json("The video has been liked.")
   } catch (err) {
-    next(err);
+    res.status(400).json({error:err.message});
   }
 };
 
-const dislike = async (req, res, next) => {
+const dislike = async (req, res) => {
     const id = req.user.id;
     const videoId = req.params.videoId;
     try {
@@ -110,11 +112,12 @@ const dislike = async (req, res, next) => {
         $addToSet:{dislikes:id},
         $pull:{likes:id}
       })
-      res.status(200).json("The video has been disliked.")
+      res.status(200).json("The video has been disliked.");
+
   } catch (err) {
-    next(err);
+    res.status(400).json({error:err.message});
   }
 };
 
 
-module.exports = { update,deleteUser ,getUser ,subscribe,unsubscribe };
+module.exports = { update,deleteUser ,getUser ,subscribe,unsubscribe,like,dislike };
