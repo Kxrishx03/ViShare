@@ -4,9 +4,12 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ReplyIcon from '@mui/icons-material/Reply';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { Comments } from "../components/Comments";
-import {Card} from "../components/Card";
-import { useSelector } from "react-router-dom";
-import { useDispatch } from "react-redux"; 
+import { Card } from "../components/Card";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { fetchSuccess, like, dislike, fetchStart } from "../redux/videoSlice";
 
 const Container = styled.div`
   display: flex;
@@ -18,7 +21,6 @@ const Content = styled.div`
 `;
 
 const VideoWrapper = styled.div``;
-
 
 const Title = styled.h1`
   font-size: 18px;
@@ -36,7 +38,6 @@ const Details = styled.div`
 
 const Info = styled.span`
   color: ${({ theme }) => theme.textSoft};
-  
 `;
 
 const Buttons = styled.div`
@@ -105,65 +106,88 @@ const Subscribe = styled.button`
   cursor: pointer;
 `;
 
-
 const Recommendation = styled.div`
   flex: 2;
 `;
 
-export function Video(){
-   const { currentUser } = useSelector((state) =>state.user);
-    return(
-        <Container>
-            <Content>
-            <VideoWrapper>
-                <iframe
-                 width="100%"
-                 height="300"
-                 src="https://www.youtube.com/embed/yIaXoop8gl4"
-                 title="YouTube Video Player"
-                 frameBorder="0"
-                 allow="accelerometer;autoplay;clipboard-write;encrpted-media;gyroscope;picture-i-picture"
-                 allowFullScreen>
-                </iframe>
-            </VideoWrapper>
-            <Title>Test Video</Title>
-            <Details>
-                <Info>7,948,657 •Jun 29 2022</Info>
-                <Buttons>
-                    <Button><ThumbUpIcon/>2.1k</Button>
-                    <Button><ThumbDownIcon/>Dislike</Button>
-                    <Button><ReplyIcon/>Share</Button>
-                    <Button><SaveAltIcon/>Download</Button>
-                </Buttons>
-            </Details>
-            <Hr/>
-            <Channel>
-                <ChannelInfo>
-                <Image src="https://d2qp0siotla746.cloudfront.net/img/use-cases/profile-picture/template_3.jpg"></Image>
-                <ChannelDetail>
-                    <ChannelName>KIARA DEV</ChannelName>
-                    <ChannelCounter>500K</ChannelCounter>
-                    <Description>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quisquam ad veritatis quas. Atque eos quisquam nobis quo minima asperiores, autem sed modi qui deleniti voluptatem deserunt rerum ex mollitia?
-                    </Description>
-                </ChannelDetail>
-                </ChannelInfo>
-                <Subscribe>SUBSCRIBE</Subscribe>
-            </Channel>
-            <Hr/>
-            <Comments />
-            </Content>
-            <Recommendation>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            </Recommendation>
-        </Container>
-    )
+export function Video() {
+  const { currentUser } = useSelector((state) => state.user);
+  const { currentVideo } = useSelector((state) => state.video);
+  const dispatch = useDispatch();
+  const path = useLocation().pathname.split("/")[2];
+  const [video, setVideo] = useState({});
+  const [channel, setChannel] = useState({});
+
+  useEffect(() => {
+    dispatch(fetchStart());
+    const fetchData = async () => {
+      try {
+        const videoRes = await axios.get(`http://localhost:3000/api/videos/find/${path}`);
+        const channelRes = await axios.get(`http://localhost:3000/api/users/find/${videoRes.data.userId}`);
+
+        setVideo(videoRes.data);
+        console.log(videoRes.data);
+        dispatch(fetchSuccess(videoRes.data));
+        setChannel(channelRes.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    fetchData();
+  }, [path, dispatch]);
+ 
+  return (
+    <Container>
+      <Content>
+        <VideoWrapper>
+          <iframe
+            width="100%"
+            height="300"
+            src="https://www.youtube.com/embed/yIaXoop8gl4"
+            title="YouTube Video Player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </VideoWrapper>
+        <Title>{currentVideo.title}</Title>
+        <Details>
+          <Info>{currentVideo.views} • {format(currentVideo.createdAt)}</Info>
+          <Buttons>
+            <Button><ThumbUpIcon />{currentVideo.likes?.length || 0}</Button>
+            <Button><ThumbDownIcon />Dislike</Button>
+            <Button><ReplyIcon />Share</Button>
+            <Button><SaveAltIcon />Download</Button>
+          </Buttons>
+        </Details>
+        <Hr />
+        <Channel>
+          <ChannelInfo>
+            <Image src="https://d2qp0siotla746.cloudfront.net/img/use-cases/profile-picture/template_3.jpg" />
+            <ChannelDetail>
+              <ChannelName>KIARA DEV</ChannelName>
+              <ChannelCounter>500K subscribers</ChannelCounter>
+              <Description>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quisquam ad veritatis quas. Atque eos quisquam nobis quo minima asperiores, autem sed modi qui deleniti voluptatem deserunt rerum ex mollitia?
+              </Description>
+            </ChannelDetail>
+          </ChannelInfo>
+          <Subscribe>SUBSCRIBE</Subscribe>
+        </Channel>
+        <Hr />
+        <Comments />
+      </Content>
+      {/* <Recommendation>
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+      </Recommendation> */}
+    </Container>
+  );
 }

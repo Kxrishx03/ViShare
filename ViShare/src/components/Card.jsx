@@ -65,7 +65,6 @@ export function Card({type,video}){
     const fetchChannel = async () => {
       try {
         const res = await axios.get(`http://localhost:3000/api/users/find/${video.userId}`);
-        console.log(res.data);
         setChannel(res.data);
       } catch (error) {
         console.error("Error fetching videos:", error);
