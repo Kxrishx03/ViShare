@@ -13,6 +13,7 @@ import { fetchSuccess, like, dislike } from "../redux/videoSlice";
 import {format} from "timeago.js";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
+import {subscription } from "../redux/userSlice";
 
 const Container = styled.div`
   display: flex;
@@ -144,6 +145,11 @@ export function Video() {
     await axios.put(`http://localhost:3000/api/users/dislike/${currentVideo._id}`,null, {withCredentials: true});
     dispatch(dislike(currentUser._id));
   };
+
+  const handleSubscribe = async () => {
+    await axios.put(`http://localhost:3000/api/users/sub/${channel._id}`);
+    dispatch(subscription(channel._id));
+  }
  
   return (
     <Container>
@@ -200,7 +206,9 @@ export function Video() {
               </Description>
             </ChannelDetail>
           </ChannelInfo>
-          <Subscribe>SUBSCRIBE</Subscribe>
+          <Subscribe onClick={handleSubscribe}>
+            {currentUser.subscribedUsers?.includes(channel._id)?"SUBSCRIBED":"SUBSCRIBE"}
+          </Subscribe>
         </Channel>
         <Hr />
         <Comments />

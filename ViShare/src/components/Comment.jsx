@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -36,6 +37,7 @@ const Text = styled.span`
 
 
 export function Comment(){
+  const { currentUser } = useSelector((state) => state.user);
     return(
         <Container>
             <Avatar src="https://d2qp0siotla746.cloudfront.net/img/use-cases/profile-picture/template_3.jpg"></Avatar>
