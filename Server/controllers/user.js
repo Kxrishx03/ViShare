@@ -98,7 +98,7 @@ const like = async (req, res) => {
       $addToSet:{likes:id},
       $pull:{dislikes:id}
     })
-    res.status(200).json("The video has been liked.")
+    res.status(200).json("The video has been liked.");
   } catch (err) {
     res.status(400).json({error:err.message});
   }

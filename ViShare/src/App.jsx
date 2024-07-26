@@ -9,6 +9,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import { Home } from "./pages/Home";
 import { Video } from "./pages/Video";
@@ -32,6 +33,7 @@ function App() {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Router>
+       <Toaster></Toaster>
         <Container>
           <Menu darkMode={darkMode} setDarkMode={setDarkMode} />
           <Main>

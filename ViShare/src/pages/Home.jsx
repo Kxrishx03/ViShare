@@ -16,17 +16,21 @@ export function Home({ type }) {
     const fetchVideos = async () => {
       try {
         const res = await axios.get(`http://localhost:3000/api/videos/${type}`);
-        console.log(res.data);
+        console.log("Fetched videos:", res.data);
         setVideos(res.data);
       } catch (error) {
-        console.error("Error fetching videos:", error);
+        console.error("Error fetching videos:", error.message);
+        console.error("Error details:", error.response?.data || error);
       }
     };
 
-    fetchVideos();
+    if (type) {
+      fetchVideos();
+    } else {
+      console.warn("Type is not defined");
+    }
   }, [type]);
 
-  console.log("videos", videos);
   return (
     <Container>
       {videos && videos.map((video) => (

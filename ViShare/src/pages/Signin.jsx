@@ -6,6 +6,7 @@ import { loginStart, loginSuccess, loginFailure } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const Container = styled.div`
   display: flex;
@@ -82,7 +83,9 @@ export function Signin(){
     try {
       const res = await axios.post("http://localhost:3000/api/auths/signin", { name, password });
       console.log(res.data);
+      document.cookie = `access_token=${res.data.access_token}`;
       dispatch(loginSuccess(res.data));
+      toast.success('You have been logged in!');
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -116,6 +119,7 @@ export function Signin(){
       });
       console.log(res);
       dispatch(loginSuccess(res.data));
+      toast.success('You have been logged in!');
       navigate("/");
     } catch (error) {
       console.error(error);
