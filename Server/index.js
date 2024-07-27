@@ -16,7 +16,7 @@ const cors = require("cors");
 // Allow only specific origins and allow credentials
 
 const corsOptions = {
-    origin: ['http://localhost:5173', 'https://vi-share-fe.vercel.app', 'https://vi-share-beta.vercel.app'],
+    origin: ['http://localhost:5173', 'https://vi-share-fe.vercel.app'],
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
@@ -54,9 +54,9 @@ mongoose.connect(process.env.MONGO_URI,{
 
 app.use(express.json());
 app.use(cookieParser());
-app.use("/",(req,res)=>{
-    res.send("Working!!!")
-})
+// app.use("/",(req,res)=>{
+//     res.send("Working!!!")
+// })
 
 app.use("/api/users",userRoutes);
 app.use("/api/videos",videoRoutes);
