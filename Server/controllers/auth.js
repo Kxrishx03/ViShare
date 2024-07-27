@@ -59,7 +59,8 @@ const signin = async (req, res) => {
             email:user.email,
             subscribers:user.subscribers,
             subscribedUsers:user.subscribedUsers,
-            access_token:token});
+            access_token:token,
+            imgUrl:user.img});
 
     } catch (err) {
         console.log(err);

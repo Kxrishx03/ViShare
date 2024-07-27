@@ -1,37 +1,37 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-// import {
-//   getStorage,
-//   ref,
-//   uploadBytesResumable,
-//   getDownloadURL,
-// } from "firebase/storage";
-// import app from "../firebase";
-// import axios from "axios";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import app from "../firebase"
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 
 const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #000000;
+  background-color: #000000a7;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const Wrapper = styled.div`
-  width: 600px;
-  height: 600px;
-  background-color: ${({ theme }) => theme.bgLighter};
-  color: ${({ theme }) => theme.text};
-  padding: 20px;
+  width: 500px;
+  height: 100%;
+  background-color: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.textSoft};
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
   position: relative;
 `;
 const Close = styled.div`
@@ -45,15 +45,15 @@ const Title = styled.h1`
 `;
 
 const Input = styled.input`
-  border: 1px solid ${({ theme }) => theme.soft};
+  border: 1px solid ${({ theme }) => theme.textSoft};
   color: ${({ theme }) => theme.text};
   border-radius: 3px;
-  padding: 10px;
+  padding: 8px;
   background-color: transparent;
   z-index: 999;
 `;
 const Desc = styled.textarea`
-  border: 1px solid ${({ theme }) => theme.soft};
+  border: 1px solid ${({ theme }) => theme.textSoft};
   color: ${({ theme }) => theme.text};
   border-radius: 3px;
   padding: 10px;
@@ -61,15 +61,17 @@ const Desc = styled.textarea`
 `;
 const Button = styled.button`
   border-radius: 3px;
-  border: none;
+  border: 1px solid ${({ theme }) => theme.textSoft};
+  margin-bottom: 4rem;
   padding: 10px 20px;
   font-weight: 500;
   cursor: pointer;
-  background-color: ${({ theme }) => theme.soft};
+  background-color: ${({ theme }) => theme.bgLight};
   color: ${({ theme }) => theme.textSoft};
 `;
 const Label = styled.label`
-  font-size: 14px;
+  font-size: 15px;
+   color: ${({ theme }) => theme.text};
 `;
 export function Upload({ setOpen }){
   const [img, setImg] = useState(undefined);
@@ -135,7 +137,7 @@ export function Upload({ setOpen }){
 
   const handleUpload = async (e)=>{
     e.preventDefault();
-    const res = await axios.post("/videos", {...inputs, tags})
+    const res = await axios.post("http://localhost:3000/api/videos", {...inputs, tags})
     setOpen(false)
     res.status===200 && navigate(`/video/${res.data._id}`)
   }
@@ -143,7 +145,7 @@ export function Upload({ setOpen }){
   return (
     <Container>
       <Wrapper>
-        <Close onClick={() => setOpen(false)}>X</Close>
+        <Close onClick={() => setOpen(false)}>X CLOSE</Close>
         <Title>Upload a New Video</Title>
         <Label>Video:</Label>
         {videoPerc > 0 ? (

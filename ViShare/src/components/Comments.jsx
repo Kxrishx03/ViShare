@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Comment } from "./Comment";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 const Container = styled.div``;
@@ -28,14 +29,14 @@ const Input = styled.input`
 `;
 
 export function Comments({videoId}){
-  
-   const [comments,setComments] = useState([]);
 
+   const { currentUser } = useSelector((state) => state.user);
+   const [comments,setComments] = useState([]);
+  
    useEffect(() =>{
     const fetchComments = async () =>{
       try{
          const res = await axios.get(`http://localhost:3000/api/comments/${videoId}`);
-         console.log(res.data);
          setComments(res.data);
       } catch(err) {
           console.log({Error:err.message});
@@ -46,7 +47,7 @@ export function Comments({videoId}){
     return (
           <Container>
               <NewComment>
-                <Avatar src="https://imgv3.fotor.com/images/gallery/3D-Female-Profile-Picture.jpg"></Avatar>
+                <Avatar src={currentUser.imgUrl}></Avatar>
                 <Input placeholder="Add a comment..."></Input>
               </NewComment>
               {comments && comments.map((comment)=>(
