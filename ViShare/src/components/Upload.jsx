@@ -137,7 +137,7 @@ export function Upload({ setOpen }){
 
   const handleUpload = async (e)=>{
     e.preventDefault();
-    const res = await axios.post("http://localhost:3000/api/videos", 
+    const res = await axios.post("https://vi-share-beta.vercel.app/api/videos", 
       { ...inputs, tags },
       { withCredentials: true }
     );

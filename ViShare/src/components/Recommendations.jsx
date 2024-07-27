@@ -12,7 +12,7 @@ const Recommendation = ({ tags }) => {
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const res = await axios.get(`http://localhost:3000/api/videos/tags?tags=${tags}`);
+      const res = await axios.get(`https://vi-share-beta.vercel.app/api/videos/tags?tags=${tags}`);
       setVideos(res.data);
     };
     fetchVideos();

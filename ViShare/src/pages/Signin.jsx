@@ -81,7 +81,7 @@ export function Signin(){
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.post("http://localhost:3000/api/auths/signin", { name, password });
+      const res = await axios.post("https://vi-share-beta.vercel.app/api/auths/signin", { name, password });
       console.log(res.data);
       document.cookie = `access_token=${res.data.access_token}`;
       dispatch(loginSuccess(res.data));
@@ -97,7 +97,7 @@ export function Signin(){
     e.preventDefault();
    
     try {
-      const res = await axios.post("http://localhost:3000/api/auths/signup", { name, email, password });
+      const res = await axios.post("https://vi-share-beta.vercel.app/api/auths/signup", { name, email, password });
       console.log(res.data);
       dispatch(loginSuccess(res.data));
       navigate("/");
@@ -112,7 +112,7 @@ export function Signin(){
     try {
       const result = await signInWithPopup(auth,provider);
       console.log(result);
-      const res = await axios.post("http://localhost:3000/api/auths/google", {
+      const res = await axios.post("https://vi-share-beta.vercel.app/api/auths/google", {
         name: result.user.displayName,
         email: result.user.email,
         img: result.user.photoUrl,

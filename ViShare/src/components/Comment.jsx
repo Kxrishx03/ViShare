@@ -44,7 +44,7 @@ export function Comment({comment}){
 
    useEffect(() => {
       const fetchComment = async () => {
-          const res = await axios.get(`http://localhost:3000/api/users/find/${comment.userId}`);
+          const res = await axios.get(`https://vi-share-beta.vercel.app/api/users/find/${comment.userId}`);
           setChannel(res.data)
       };
     fetchComment();

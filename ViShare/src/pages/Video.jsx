@@ -132,8 +132,8 @@ export function Video() {
     
     const fetchData = async () => {
       try {
-        const videoRes = await axios.get(`http://localhost:3000/api/videos/find/${path}`);
-        const channelRes = await axios.get(`http://localhost:3000/api/users/find/${videoRes.data.video.userId}`);
+        const videoRes = await axios.get(`https://vi-share-beta.vercel.app/api/videos/find/${path}`);
+        const channelRes = await axios.get(`https://vi-share-beta.vercel.app/api/users/find/${videoRes.data.video.userId}`);
         dispatch(fetchSuccess( videoRes.data.video));
         setChannel(channelRes.data);
       } catch (err) {
@@ -145,18 +145,18 @@ export function Video() {
 
 
   const handleLike = async () => {
-    await axios.put(`http://localhost:3000/api/users/like/${currentVideo._id}`,null, {withCredentials: true});
+    await axios.put(`https://vi-share-beta.vercel.app/api/users/like/${currentVideo._id}`,null, {withCredentials: true});
     dispatch(like(currentUser._id));
   };
   const handleDislike = async () => {
-    await axios.put(`http://localhost:3000/api/users/dislike/${currentVideo._id}`,null, {withCredentials: true});
+    await axios.put(`https://vi-share-beta.vercel.app/api/users/dislike/${currentVideo._id}`,null, {withCredentials: true});
     dispatch(dislike(currentUser._id));
   };
 
   const handleSubscribe = async () => {
     currentUser && currentUser.subscribedUsers?.includes(channel._id)
-    ?await axios.put(`http://localhost:3000/api/users/unsub/${channel._id}`,null, {withCredentials: true})
-    :await axios.put(`http://localhost:3000/api/users/sub/${channel._id}`,null, {withCredentials: true});
+    ?await axios.put(`https://vi-share-beta.vercel.app/api/users/unsub/${channel._id}`,null, {withCredentials: true})
+    :await axios.put(`https://vi-share-beta.vercel.app/api/users/sub/${channel._id}`,null, {withCredentials: true});
     dispatch(subscription(channel._id));
   }
  

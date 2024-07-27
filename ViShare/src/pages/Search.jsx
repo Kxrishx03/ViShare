@@ -13,10 +13,10 @@ const Container = styled.div`
 const Search = () => {
   const [videos, setVideos] = useState([]);
   const query = useLocation().search;
-  console.log(query)
+  
   useEffect(() => {
     const fetchVideos = async () => {
-      const res = await axios.get(`http://localhost:3000/api/videos/search${query}`);
+      const res = await axios.get(`https://vi-share-beta.vercel.app/api/videos/search${query}`);
       setVideos(res.data);
     };
     fetchVideos();

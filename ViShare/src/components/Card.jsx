@@ -64,7 +64,7 @@ export function Card({type,video}){
   useEffect(() => {
     const fetchChannel = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/users/find/${video.userId}`);
+        const res = await axios.get(`https://vi-share-beta.vercel.app/api/users/find/${video.userId}`);
         setChannel(res.data);
       } catch (error) {
         console.error("Error fetching videos:", error);

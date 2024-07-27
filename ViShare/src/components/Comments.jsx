@@ -36,7 +36,7 @@ export function Comments({videoId}){
    useEffect(() =>{
     const fetchComments = async () =>{
       try{
-         const res = await axios.get(`http://localhost:3000/api/comments/${videoId}`);
+         const res = await axios.get(`https://vi-share-beta.vercel.app/api/comments/${videoId}`);
          setComments(res.data);
       } catch(err) {
           console.log({Error:err.message});
