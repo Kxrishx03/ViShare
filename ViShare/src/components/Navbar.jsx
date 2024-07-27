@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Upload } from "./Upload";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
 position:sticky;
@@ -39,6 +40,10 @@ const Search = styled.div`
 const Input = styled.input`
   border: none;
   background-color: transparent;
+  &:focus {
+    border: none;
+    outline: none; 
+  }
 `;
 
 const Button = styled.button`
@@ -77,14 +82,16 @@ export function Navbar(){
 
     const { currentUser } = useSelector((state) => state.user);
     const [open, setOpen] = useState(false);
-  
+    const navigate = useNavigate();
+    const [q, setQ] = useState("");
     return (
       <>
         <Container>
             <Wrapper>
                 <Search>
-                <Input placeholder="search"></Input>
-                <SearchIcon/></Search>
+                <Input placeholder="search" 
+                 onChange={(e) => setQ(e.target.value)}></Input>
+                <SearchIcon onClick={()=>navigate(`/search?q=${q}`)}/></Search>
                { currentUser ? (
                <User>
                 <VideoCallOutlinedIcon style={{cursor:"pointer"}} onClick={() => setOpen(true)} />

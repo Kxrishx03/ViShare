@@ -15,7 +15,7 @@ export function Home({ type }) {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get(`https://vi-share-beta.vercel.app/api/videos/${type}`);
+        const res = await axios.get(`http://localhost:3000/api/videos/${type}`);
         setVideos(res.data);
       } catch (error) {
         console.error("Error fetching videos:", error.message);

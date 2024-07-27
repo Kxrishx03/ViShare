@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState,useEffect } from "react";
 
 const Container = styled.div`
- width: ${(props)=>props.type !== "sm" ? "400px" : "200px"};
+ width: ${(props)=>props.type !== "sm" ? "400px" : "400px"};
  cursor: pointer;
  margin: ${(props)=>props.type === "sm" && "0px"};
  margin-bottom:${(props)=>props.type === "sm" ? "0px" :"30px"};

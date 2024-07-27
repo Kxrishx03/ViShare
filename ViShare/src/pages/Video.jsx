@@ -14,6 +14,7 @@ import {format} from "timeago.js";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 import {subscription } from "../redux/userSlice";
+import Recommendation from "../components/Recommendations";
 
 const Container = styled.div`
   display: flex;
@@ -110,9 +111,7 @@ const Subscribe = styled.button`
   cursor: pointer;
 `;
 
-const Recommendation = styled.div`
-  flex: 2;
-`;
+
 
 
 const VideoFrame = styled.video`
@@ -165,7 +164,7 @@ export function Video() {
     <Container>
       <Content>
         <VideoWrapper>
-        <VideoFrame src={currentVideo.videoUrl} controls />
+        <VideoFrame src={currentVideo.videoUrl} controls  />
         </VideoWrapper>
         <Title>{ currentVideo && currentVideo.title}</Title>
         <Details>
@@ -215,17 +214,7 @@ export function Video() {
         <Hr />
         <Comments videoId={currentVideo._id}/>
       </Content>
-      {/* <Recommendation>
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-      </Recommendation>  */}
+     <Recommendation tags={currentVideo.tags} />
     </Container>
   );
 }
