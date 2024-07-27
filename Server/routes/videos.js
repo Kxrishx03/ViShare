@@ -24,6 +24,10 @@ router.get("/trend",trend);
 //RANDOM VIDEO
 router.get("/random",random);
 
+//TEST
+router.get("/test",(req,res) => {
+    res.status(200).json({Messaage:"Working"});
+})
 
 //SUBSCRIBE CHANNEL VIDEO
 router.get("/sub",verifyToken,sub);
