@@ -60,6 +60,7 @@ const getUser = async (req, res) => {
 
 const subscribe = async (req, res) => {
   try {
+   
     await User.findByIdAndUpdate(req.user.id, {
       $push: { subscribedUsers: req.params.id },
     });
@@ -94,11 +95,13 @@ const like = async (req, res) => {
   const videoId = req.params.videoId;
  
   try {
-    await Video.findByIdAndUpdate(videoId,{
+
+     const resVideo = await Video.findByIdAndUpdate(videoId,{
       $addToSet:{likes:id},
       $pull:{dislikes:id}
-    })
-    res.status(200).json("The video has been liked.");
+    },{new:true});
+    
+    res.status(200).json({video:resVideo,message:"Video has been liked!"});
   } catch (err) {
     res.status(400).json({error:err.message});
   }

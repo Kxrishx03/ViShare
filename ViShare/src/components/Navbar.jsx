@@ -5,6 +5,7 @@ import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { Upload } from "./Upload";
 
 const Container = styled.div`
 position:sticky;
@@ -78,6 +79,7 @@ export function Navbar(){
     const [open, setOpen] = useState(false);
   
     return (
+      <>
         <Container>
             <Wrapper>
                 <Search>
@@ -96,5 +98,7 @@ export function Navbar(){
                 
             </Wrapper>
         </Container>
+        {open && <Upload setOpen={setOpen} />}
+      </>  
     )
 }

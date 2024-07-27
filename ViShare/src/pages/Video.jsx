@@ -147,7 +147,9 @@ export function Video() {
   };
 
   const handleSubscribe = async () => {
-    await axios.put(`http://localhost:3000/api/users/sub/${channel._id}`);
+    currentUser && currentUser.subscribedUsers?.includes(channel._id)
+    ?await axios.put(`http://localhost:3000/api/users/unsub/${channel._id}`,null, {withCredentials: true})
+    :await axios.put(`http://localhost:3000/api/users/sub/${channel._id}`,null, {withCredentials: true});
     dispatch(subscription(channel._id));
   }
  
@@ -207,11 +209,11 @@ export function Video() {
             </ChannelDetail>
           </ChannelInfo>
           <Subscribe onClick={handleSubscribe}>
-            {currentUser.subscribedUsers?.includes(channel._id)?"SUBSCRIBED":"SUBSCRIBE"}
+            { currentUser && currentUser.subscribedUsers?.includes(channel._id)?"SUBSCRIBED":"SUBSCRIBE"}
           </Subscribe>
         </Channel>
         <Hr />
-        <Comments />
+        <Comments videoId={currentVideo._id}/>
       </Content>
       {/* <Recommendation>
         <Card type="sm" />

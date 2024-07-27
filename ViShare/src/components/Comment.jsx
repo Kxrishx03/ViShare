@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import {format} from "timeago.js";
 
 const Container = styled.div`
   display: flex;
@@ -36,16 +38,27 @@ const Text = styled.span`
 `;
 
 
-export function Comment(){
-  const { currentUser } = useSelector((state) => state.user);
+export function Comment({comment}){
+    
+  const [channel, setChannel] = useState({});
+
+   useEffect(() => {
+      const fetchComment = async () => {
+          const res = await axios.get(`http://localhost:3000/api/users/find/${comment.userId}`);
+          setChannel(res.data)
+      };
+    fetchComment();
+     }, [comment.userId]);
+   
     return(
         <Container>
-            <Avatar src="https://d2qp0siotla746.cloudfront.net/img/use-cases/profile-picture/template_3.jpg"></Avatar>
+            <Avatar src={channel.img}></Avatar>
             <Details>
             <Name>
-            John Doe <Date>1 day ago</Date></Name>
+            {channel.name} <Date>{format(channel.createdAt)}</Date></Name>
             <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolor odit reprehenderit. Quo, dolor. Ipsum nesciunt est officiis tenetur, unde praesentium facere, architecto nemo consequatur animi, accusantium deserunt a quasi?</Text>
+            {comment.desc}
+            </Text>
             </Details>
         </Container>
     )

@@ -16,7 +16,6 @@ export function Home({ type }) {
     const fetchVideos = async () => {
       try {
         const res = await axios.get(`http://localhost:3000/api/videos/${type}`);
-        console.log("Fetched videos:", res.data);
         setVideos(res.data);
       } catch (error) {
         console.error("Error fetching videos:", error.message);

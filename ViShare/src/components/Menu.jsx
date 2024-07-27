@@ -94,6 +94,7 @@ export function Menu({darkMode,setDarkMode}){
    const handleSignout = () =>{
         try{
          dispatch(logout());
+         document.cookie = `access_token=; expires=${new Date(0).toUTCString()}`;
          navigate("/");
         } catch(err){
           console.log(err);
