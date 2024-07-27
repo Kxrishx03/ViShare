@@ -15,7 +15,7 @@ const PORT = process.env.PORT;
 const cors = require("cors");
 // Allow only specific origins and allow credentials
 const corsOptions = {
-    origin: 'http://localhost:5173', // Replace with your frontend URL
+    origin: ['http://localhost:5173','https://vi-share-fe.vercel.app/'], // Replace with your frontend URL
     methods: ['GET', 'PUT', 'POST', 'DELETE'], // Allow specific methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
     credentials: true // Allow credentials (cookies, authorization headers)

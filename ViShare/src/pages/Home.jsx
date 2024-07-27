@@ -17,6 +17,7 @@ export function Home({ type }) {
       try {
         const res = await axios.get(`https://vi-share-beta.vercel.app/api/videos/${type}`);
         setVideos(res.data);
+        console.log(res.data);
       } catch (error) {
         console.error("Error fetching videos:", error.message);
         console.error("Error details:", error.response?.data || error);
