@@ -54,6 +54,9 @@ mongoose.connect(process.env.MONGO_URI,{
 
 app.use(express.json());
 app.use(cookieParser());
+app.use("/",(req,res)=>{
+    res.send("Working!!!")
+})
 
 app.use("/api/users",userRoutes);
 app.use("/api/videos",videoRoutes);

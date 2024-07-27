@@ -116,7 +116,7 @@ const Recommendation = styled.div`
 
 
 const VideoFrame = styled.video`
-  max-height: 700px;
+  max-height: 70vh;
   width: 100%;
   object-fit: cover;
 
@@ -225,7 +225,7 @@ export function Video() {
         <Card type="sm" />
         <Card type="sm" />
         <Card type="sm" />
-      </Recommendation> */}
+      </Recommendation>  */}
     </Container>
   );
 }
