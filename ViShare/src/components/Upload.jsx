@@ -137,7 +137,10 @@ export function Upload({ setOpen }){
 
   const handleUpload = async (e)=>{
     e.preventDefault();
-    const res = await axios.post("http://localhost:3000/api/videos", {...inputs, tags})
+    const res = await axios.post("http://localhost:3000/api/videos", 
+      { ...inputs, tags },
+      { withCredentials: true }
+    );
     setOpen(false)
     res.status===200 && navigate(`/video/${res.data._id}`)
   }
