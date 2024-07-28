@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   width: 100vw;
   height: 100%;
+  margin-top: 2rem;
   position: absolute;
   top: 0;
   left: 0;
