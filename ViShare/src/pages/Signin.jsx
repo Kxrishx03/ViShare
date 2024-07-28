@@ -100,7 +100,9 @@ export function Signin(){
       const res = await axios.post("https://vi-share-beta.vercel.app/api/auths/signup", { name, email, password });
       console.log(res.data);
       dispatch(loginSuccess(res.data));
+      toast.success('Account has been created!!');
       navigate("/signin");
+      toast.success('Please Signin in your account!');
     } catch (err) {
       console.error(err);
      
