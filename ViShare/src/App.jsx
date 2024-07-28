@@ -44,9 +44,9 @@ function App() {
                 <Route path="/" element={<Home type="random"/>} />
                 <Route path="/trends" element={<Home type="trend"/>} />
                 <Route path="/sub" element={<Home type="sub"/>} />
-                <Route path="search" element={<Search />} />
+                <Route path="/search" element={<Search />} />
                 <Route path="/signin" element={<Signin/>}/>
-                <Route path="video">
+                <Route path="/video">
                   <Route path=":id" element={<Video />} />
                 </Route>
               </Routes>
