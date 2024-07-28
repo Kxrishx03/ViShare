@@ -100,7 +100,7 @@ export function Signin(){
       const res = await axios.post("https://vi-share-beta.vercel.app/api/auths/signup", { name, email, password });
       console.log(res.data);
       dispatch(loginSuccess(res.data));
-      navigate("/");
+      navigate("/signin");
     } catch (err) {
       console.error(err);
      
