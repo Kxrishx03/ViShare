@@ -65,7 +65,7 @@ const Desc = styled.textarea`
 const Button = styled.button`
   border-radius: 3px;
   border: 1px solid ${({ theme }) => theme.textSoft};
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   padding: 10px 20px;
   font-weight: 500;
   cursor: pointer;
