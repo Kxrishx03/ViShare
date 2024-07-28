@@ -42,6 +42,8 @@ const Close = styled.div`
 `;
 const Title = styled.h1`
   text-align: center;
+  font-size: 1.75rem;
+  text-transform: uppercase;
 `;
 
 const Input = styled.input`
@@ -152,7 +154,7 @@ export function Upload({ setOpen }){
         <Title>Upload a New Video</Title>
         <Label>Video:</Label>
         {videoPerc > 0 ? (
-          "Uploading:" + videoPerc
+          "Uploading:" + videoPerc + "%"
         ) : (
           <Input
             type="file"
