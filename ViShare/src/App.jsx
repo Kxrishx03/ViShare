@@ -46,8 +46,9 @@ function App() {
                 <Route path="/sub" element={<Home type="sub"/>} />
                 <Route path="search" element={<Search />} />
                 <Route path="/signin" element={<Signin/>}/>
-                <Route path="/video/:id" element={<Video />} />
-                
+                <Route path="video">
+                  <Route path=":id" element={<Video />} />
+                </Route>
               </Routes>
             </Wrapper>
           </Main>
