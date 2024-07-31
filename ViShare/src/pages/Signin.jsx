@@ -137,8 +137,8 @@ export function Signin(){
         <Input placeholder="username" onChange={(e) => setName(e.target.value)} />
         <Input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
         <Button onClick={handleLogin}>Sign in</Button>
-        <Title>or</Title>
-        <Button onClick={signInWithGoogle}>Sign in with Google</Button>
+        {/*<Title>or</Title>
+        <Button onClick={signInWithGoogle}>Sign in with Google</Button>*/}
         <Title>or</Title>
         <Input placeholder="username" onChange={(e) => setName(e.target.value)} />
         <Input placeholder="email" onChange={(e) => setEmail(e.target.value)} />
