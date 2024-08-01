@@ -138,15 +138,29 @@ export function Upload({ setOpen }){
     img && uploadFile(img, "imgUrl");
   }, [img]);
 
-  const handleUpload = async (e)=>{
+  const handleUpload = async (e) => {
     e.preventDefault();
-    const res = await axios.post("https://vi-share-beta.vercel.app/api/videos", 
-      { ...inputs, tags },
-      { withCredentials: true }
-    );
-    setOpen(false)
-    res.status===200 && navigate(`/video/${res.data._id}`)
-  }
+  
+    try {
+      const res = await axios.post(
+        "https://vi-share-beta.vercel.app/api/videos", 
+        { ...inputs, tags },
+        { withCredentials: true }
+      );
+  
+      if (res.status === 200) {
+        setOpen(false);
+        navigate(`/video/${res.data._id}`);
+      } else {
+      
+        console.error(`Failed to upload video: ${res.status}`);
+      }
+    } catch (error) {
+      
+      console.error("Error uploading video:", error);
+    }
+  };
+  
 
   return (
     <Container>
