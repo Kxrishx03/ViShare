@@ -163,7 +163,7 @@ export function Video() {
     :await axios.put(`https://vi-share-beta.vercel.app/api/users/sub/${channel._id}`,null, {withCredentials: true});
     dispatch(subscription(channel._id));
   }
- console.log(currentVideo);
+
   return (
     <Container>
       <Content>
