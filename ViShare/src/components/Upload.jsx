@@ -143,7 +143,7 @@ export function Upload({ setOpen }){
   
     try {
       const res = await axios.post(
-        "https://vi-share-beta.vercel.app/api/videos", 
+        "https://vi-share-beta.vercel.app/api/videos/", 
         { ...inputs, tags },
         { withCredentials: true }
       );
