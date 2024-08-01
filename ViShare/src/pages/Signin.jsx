@@ -120,6 +120,7 @@ export function Signin(){
         img: result.user.photoUrl,
       });
       console.log(res);
+      document.cookie = `access_token=${res.data.access_token}`;
       dispatch(loginSuccess(res.data));
       toast.success('You have been logged in!');
       navigate("/");
