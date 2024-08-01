@@ -124,8 +124,10 @@ const VideoFrame = styled.video`
 export function Video() {
   const { currentUser } = useSelector((state) => state.user);
   const { currentVideo } = useSelector((state) => state.video);
+  console.log("Current Video :" + currentVideo);
   const dispatch = useDispatch();
   const path = useLocation().pathname.split("/")[2];
+  console.log(path);
   const [channel, setChannel] = useState({});
 
   useEffect(() => {
