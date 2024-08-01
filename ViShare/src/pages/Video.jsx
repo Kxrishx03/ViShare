@@ -136,11 +136,12 @@ export function Video() {
       try {
         const videoRes = await axios.get(`https://vi-share-beta.vercel.app/api/videos/find/${path}`);
         const channelRes = await axios.get(`https://vi-share-beta.vercel.app/api/users/find/${videoRes.data.video.userId}`);
-        console.log("VideoREs: " + videoRes.data.video);
+        console.log("VideoRes: " + videoRes.data.video);
         dispatch(fetchSuccess(videoRes.data.video));
         setChannel(channelRes.data);
       } catch (err) {
-        console.log(err.message);
+        
+        console.log("Error "+ err.message);
       }
     };
     fetchData();
